@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,5 +29,10 @@ public class Order {
     private OrderStatus orderStatus;
 
     private double orderTotal;
+
+    //This tells JPA:
+    //“This order can have many line items, and they are stored in the LineItem table under the order column.”
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LineItem> orderItems;
 
 }

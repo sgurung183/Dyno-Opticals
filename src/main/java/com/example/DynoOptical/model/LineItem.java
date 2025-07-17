@@ -27,4 +27,8 @@ public class LineItem {
     //this is saying line item belongs to that cart
     private Cart cart;
 
+    //Many line items are in one cart
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
