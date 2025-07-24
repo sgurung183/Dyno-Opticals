@@ -27,6 +27,7 @@ public class ItemService {
     }
 
     public List<Item> getItemsByName(String name){
-        return itemRepository.findByName(name);
+        return itemRepository.findByNameContainingIgnoreCase(name);
+
     }
 }
