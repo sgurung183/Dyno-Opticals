@@ -31,4 +31,9 @@ public class LineItem {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public double getLineTotal() {
+        return this.quantity * this.item.getPrice();
+    }
+
 }

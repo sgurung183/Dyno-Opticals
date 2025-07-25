@@ -27,6 +27,11 @@ public class Cart {
     @JoinColumn(name = "Customer_id")
     private Customer customer;
 
+    //This is telling the JPA LineItem owns the foreign key (not Cart). Don’t create an extra table
+    //mappedBy = "cart" means the LineItem class has the @ManyToOne field cart
+    //It tells Spring Boot to manage the relationship from the LineItem side
+    //So when you save the cart, JPA looks inside the lineItems and knows how to map them
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LineItem> cartItems;
 

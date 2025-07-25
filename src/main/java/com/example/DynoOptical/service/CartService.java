@@ -92,8 +92,9 @@ public class CartService {
             }
             else{
                 lineItem.setQuantity(itemQuantity - 1);
+                lineItemRepository.save(lineItem);
             }
-            lineItemRepository.save(lineItem);
+
         }
         else{
             throw new RuntimeException("Item not in the cart");
@@ -115,4 +116,21 @@ public class CartService {
         }
         return total;
     }
+
+    public Cart removeLine(Long customerId, Long itemId){
+        Cart customerCart = getCartByCustomerId(customerId);
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(()->new RuntimeException("Item not sold at this store"));
+
+        Optional<LineItem> optionalLineItem = lineItemRepository.findByCartAndItem(customerCart, item);
+        if(optionalLineItem.isPresent()){
+            lineItemRepository.delete(optionalLineItem.get());
+        }
+        else{
+            throw new RuntimeException("Item not in the cart");
+        }
+        return customerCart;
+    }
+
 }

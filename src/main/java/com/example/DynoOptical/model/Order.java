@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+@Table(name = "customer_order")  // rename the table as ORDER is a reserved keyword in sql
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
